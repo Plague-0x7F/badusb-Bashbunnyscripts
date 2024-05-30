@@ -1,0 +1,49 @@
+
+
+whoami /all 
+net user 
+net localgroup 
+net accounts 
+net share 
+arp -A 
+route print
+ipconfig
+netsh wlan show profile 
+netsh firewall show state
+get-process
+type C:\Windows\System32\drivers\etc\hosts 
+$user = Get-WmiObject -Class win32_UserAccount | Select-Object -Property Name
+type $user.name\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt 
+type C:\Users\$user.name\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt 
+type $env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\ConsoleHost_history.txt 
+type (Get-PSReadlineOption).HistorySavePath 
+type (Get-PSReadlineOption).HistorySavePath | sls passw 
+systeminfo 
+reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated 
+reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated 
+klist sessions 
+powershell -command "Get-Clipboard" 
+wmic qfe 
+wmic product get name,version 
+wmic logicaldisk get caption,description  
+Get-WmiObject -Class win32_UserAccount | Select-Object -Property Name | ForEach-Object {net user $_.name} 
+Get-CimInstance Win32_StartupCommand | select Name, command, Location, User | fl
+Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname 
+Get-ChildItem -Path C:\Users\$user\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue
+$user.name | ForEach-Object {Get-Content -Path C:\Users\$_\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

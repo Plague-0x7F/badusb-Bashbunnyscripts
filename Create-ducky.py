@@ -2,7 +2,7 @@
 
 import sys
 
-print("EX. brutebunny.py passwordfile.txt outfile.txt 2\n")
+print("EX. Create-ducky.py {your input file}.txt outfile.txt 2\n")
 print("required arguments are [input file] [output file] [delay in seconds]\n")
 #setting files to read and write
 fin = sys.argv[1]
